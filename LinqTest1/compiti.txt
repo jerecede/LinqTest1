@@ -1,0 +1,12 @@
+﻿compititititi
+
+FACOLTATIVO
+- riscrivere tutto quello fatto in classe ma con aggregate (reduce)
+
+1) scrivere una query che mi da tutti i nickname degli studenti maschi
+2) scrivere una query che faccia la media delle temperature delle città che iniziano con la lettera G
+3) scrivere una query che mi da il nome della città con la temperatura più alta
+4) una funzione in q(scrivere una query) che prenda gli array cities e temperature e crearne una dictionary citytemperatures
+5) che prenda nickname Student e mi faccia una Dictionary
+
+- dare un'occhiata a linq tutorial microsoft
