@@ -1,4 +1,6 @@
-﻿namespace LinqTest1
+﻿using System.Collections.Generic;
+
+namespace LinqTest1
 {
     internal class Program
     {
@@ -20,12 +22,12 @@
             var cityTemperature = new Dictionary<string, double>()
             {
                 { "New York", 30.5 },
-                { "Los Angeles", 32.0 },
+                { "GLos Angeles", 32.0 },
                 { "Chicago", 31.5 },
                 { "Houston", 29.0 },
                 { "Phoenix", 28.5 },
                 { "Genova", 33.0 },
-                {"Roma", 34.5}
+                { "GRoma", 34.5}
             };
 
             var nicknameStudent = new Dictionary<string, Student>()
@@ -102,6 +104,39 @@
             {
                 Console.WriteLine($"{citiesWithTemperatureAbove30[i]}");
             }
+
+            //1) scrivere una query che mi da tutti i nickname degli studenti maschi
+
+            var maleStudentsNicknames = nicknameStudent.Where(kv => kv.Value.IsMale).Select(kv => kv.Key).ToList();
+
+            for (int i = 0; i < maleStudentsNicknames.Count; i++)
+            {
+                Console.WriteLine($"{maleStudentsNicknames[i]}");
+            }
+
+            //2) scrivere una query che faccia la media delle temperature delle città che iniziano con la lettera G
+
+            var averageTemperatureCityG = cityTemperature.Where(kv => kv.Key.StartsWith("g", StringComparison.CurrentCultureIgnoreCase)).Average(kv => kv.Value);
+            Console.WriteLine(averageTemperatureCityG);
+
+            //3) scrivere una query che mi da il nome della città con la temperatura più alta
+
+            var cityWithMaxTemperature = cityTemperature.OrderByDescending(kv => kv.Value).FirstOrDefault().Key;
+            Console.WriteLine(cityWithMaxTemperature);
+
+            //4) una funzione in q(scrivere una query) che prenda gli array cities e temperature e crearne una dictionary citytemperatures
+
+            var cityTemperatureDict = cityNames.Zip(temperatures, (city, temp) => new { city, temp }).ToDictionary(x => x.city, x => x.temp);
+
+            foreach (var cityTemp in cityTemperatureDict)
+            {
+                Console.WriteLine(cityTemp.Key);
+                Console.WriteLine(cityTemp.Value);
+            }
+
+            //5) una funzione in q(scrivere una query) che prenda nicknames di nicknameStudent ed age di student, e crearne una dictionary citytemperatures
+
+            var nicknameStudentDict = students.Zip(nicknameStudent, (student, kv) => new { student, kv }).ToDictionary(x => x.kv.Key, x => x.student.Age);
         }
     }
 }
