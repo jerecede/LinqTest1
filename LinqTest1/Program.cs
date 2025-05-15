@@ -124,9 +124,18 @@ namespace LinqTest1
             var cityWithMaxTemperature = cityTemperature.OrderByDescending(kv => kv.Value).FirstOrDefault().Key;
             Console.WriteLine(cityWithMaxTemperature);
 
+            //5) una funzione in q(scrivere una query) che prenda nicknames di nicknameStudent ed age di student, e crearne una dictionary
+
+            var nicknameStudentDict = students.Zip(nicknameStudent, (student, nickStudent) => new { student, nickStudent }).ToDictionary(x => x.nickStudent.Key, x => x.student.Age); //ho sbagliato ho gia in nicknameStudent Students
+            var nicknameStudentDictGiusto = nicknameStudent.ToDictionary(s => s.Key, s => s.Value.Age);
+            foreach (var kv in nicknameStudentDictGiusto)
+            {
+                Console.WriteLine(kv.Key + " -- " + kv.Value);
+            }
+
             //4) una funzione in q(scrivere una query) che prenda gli array cities e temperature e crearne una dictionary citytemperatures
 
-            var cityTemperatureDict = cityNames.Zip(temperatures, (city, temp) => new { city, temp }).ToDictionary(x => x.city, x => x.temp);
+            var cityTemperatureDict = cityNames.Zip(temperatures, (city, temperature) => new { city, temperature }).ToDictionary(tupla => tupla.city, tupla => tupla.temperature);
 
             foreach (var cityTemp in cityTemperatureDict)
             {
@@ -134,9 +143,20 @@ namespace LinqTest1
                 Console.WriteLine(cityTemp.Value);
             }
 
-            //5) una funzione in q(scrivere una query) che prenda nicknames di nicknameStudent ed age di student, e crearne una dictionary citytemperatures
+            //ZIP CREA TUPLE
+            // https://learn.microsoft.com/it-it/dotnet/csharp/language-reference/builtin-types/value-tuples
 
-            var nicknameStudentDict = students.Zip(nicknameStudent, (student, kv) => new { student, kv }).ToDictionary(x => x.kv.Key, x => x.student.Age);
+            var cityTemperatureZipList = cityNames.Zip(temperatures).ToList();
+            foreach (var cityTemp in cityTemperatureZipList)
+            {
+                Console.WriteLine(cityTemp.First + " - " + cityTemp.Item2);
+            }
+
+            var cityTemperatureZipDict = cityNames.Zip(temperatures).ToDictionary(); //bastava questo per l'esercizio 4, non c'era bisogno di fare il ToDictionary
+            foreach (var cityTemp in cityTemperatureZipDict)
+            {
+                Console.WriteLine(cityTemp.Key + " - " + cityTemp.Value);
+            }
         }
     }
 }

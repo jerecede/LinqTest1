@@ -1,6 +1,6 @@
 ﻿compititititi
 
-FACOLTATIVO
+OPZIONALE
 - riscrivere tutto quello fatto in classe ma con aggregate (reduce)
 
 1) scrivere una query che mi da tutti i nickname degli studenti maschi
